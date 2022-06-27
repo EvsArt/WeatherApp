@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="logo">The weather in your city</string>
+    <string name="input">Your city</string>
+    <string name="MainButton">Search</string>
+</resources>
