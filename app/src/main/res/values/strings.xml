@@ -4,4 +4,9 @@
     <string name="input">Ваш город</string>
     <string name="MainButton">Найти</string>
     <string name="inputYourCity">Введите название города!</string>
+    <string name="temp">"Температура: "</string>cd
+    <string name="feels_like">"Ощущается как: "</string>
+    <string name="speed">"Скорость ветра: "</string>
+    <string name="MetersPerSecond">" м/с"</string>
+    <string name="Loading">Идёт загрузка...</string>
 </resources>

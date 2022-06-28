@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     String city = input.getText().toString();
                     String key = "943b7d93d1e35187f63502d4af0ec283";
                     String url = "https://api.openweathermap.org/data/2.5/weather?q=" + city +
-                            "&appid=" + key + "&units=metric&lang=ru";// + Locale.getDefault().getLanguage();
+                            "&appid=" + key + "&units=metric&lang=" + Locale.getDefault().getLanguage();
                     new GetURLData().execute(url);
                 }
             }
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPreExecute(){
             super.onPreExecute();
-            ResultOutput.setText("Идёт загрузка...");
+            ResultOutput.setText(R.string.Loading);
         }
 
         @Override
@@ -97,11 +100,28 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(String result){
             super.onPostExecute(result);
+            try {
+                JSONObject JSONobj = new JSONObject(result);
 
-            ResultOutput.setText(result);
+                String deskription = JSONobj.getJSONArray("weather").getJSONObject(0).getString("description");
+                    deskription = deskription.substring(0,1).toUpperCase() + deskription.substring(1);
+                double temp = JSONobj.getJSONObject("main").getDouble("temp");
+                double feels_like = JSONobj.getJSONObject("main").getDouble("feels_like");
+                double speed = JSONobj.getJSONObject("wind").getDouble("speed");
+
+                ResultOutput.setText(getString(R.string.temp) + temp + "\n" +
+                                    getString(R.string.feels_like) + feels_like + "\n" +
+                                    getString(R.string.speed) + speed + getString(R.string.MetersPerSecond) + '\n' +
+                                    deskription);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }
