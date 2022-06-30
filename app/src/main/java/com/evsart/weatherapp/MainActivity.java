@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText input;
     private Button MainButton;
-    private TextView ResultOutput;
+    private TextView ResultOutput;  // Connection with screen elements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
